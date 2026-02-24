@@ -1,0 +1,124 @@
+# ============================================================
+# Pipeline: Agent Pool Parallel Distribution Test
+# Purpose : Validate that Azure DevOps auto-picks idle agents
+#           from the pool - NO Load Balancer needed
+# ============================================================
+
+trigger: none  # Manual trigger only for testing
+
+pool:
+  name: 'YOUR-PRIVATE-AGENT-POOL-NAME'  # 🔁 Replace with your pool name
+
+# -----------------------------------------------------------
+# This creates 5 parallel jobs simultaneously
+# Each job will be picked by a different idle agent in pool
+# -----------------------------------------------------------
+strategy:
+  parallel: 5  # Change this number based on agents you have
+
+jobs:
+
+# -----------------------------------------------------------
+# JOB 1
+# -----------------------------------------------------------
+- job: AgentTest_Job1
+  displayName: '🔵 Job 1 - Agent Distribution Test'
+  pool:
+    name: 'YOUR-PRIVATE-AGENT-POOL-NAME'  # 🔁 Replace
+  steps:
+    - script: |
+        echo "============================================"
+        echo "JOB 1 PICKED BY AGENT: $(Agent.Name)"
+        echo "Machine Name       : $(Agent.MachineName)"
+        echo "Agent ID           : $(Agent.Id)"
+        echo "Pool Name          : $(Agent.PoolName)"
+        echo "Job Start Time     : $(date)"
+        echo "============================================"
+        echo "Simulating workload - sleeping 60 seconds..."
+        sleep 60
+        echo "Job 1 Complete on Agent: $(Agent.Name)"
+      displayName: 'Print Agent Info & Simulate Load'
+
+# -----------------------------------------------------------
+# JOB 2
+# -----------------------------------------------------------
+- job: AgentTest_Job2
+  displayName: '🟢 Job 2 - Agent Distribution Test'
+  pool:
+    name: 'YOUR-PRIVATE-AGENT-POOL-NAME'  # 🔁 Replace
+  steps:
+    - script: |
+        echo "============================================"
+        echo "JOB 2 PICKED BY AGENT: $(Agent.Name)"
+        echo "Machine Name       : $(Agent.MachineName)"
+        echo "Agent ID           : $(Agent.Id)"
+        echo "Pool Name          : $(Agent.PoolName)"
+        echo "Job Start Time     : $(date)"
+        echo "============================================"
+        echo "Simulating workload - sleeping 60 seconds..."
+        sleep 60
+        echo "Job 2 Complete on Agent: $(Agent.Name)"
+      displayName: 'Print Agent Info & Simulate Load'
+
+# -----------------------------------------------------------
+# JOB 3
+# -----------------------------------------------------------
+- job: AgentTest_Job3
+  displayName: '🟡 Job 3 - Agent Distribution Test'
+  pool:
+    name: 'YOUR-PRIVATE-AGENT-POOL-NAME'  # 🔁 Replace
+  steps:
+    - script: |
+        echo "============================================"
+        echo "JOB 3 PICKED BY AGENT: $(Agent.Name)"
+        echo "Machine Name       : $(Agent.MachineName)"
+        echo "Agent ID           : $(Agent.Id)"
+        echo "Pool Name          : $(Agent.PoolName)"
+        echo "Job Start Time     : $(date)"
+        echo "============================================"
+        echo "Simulating workload - sleeping 60 seconds..."
+        sleep 60
+        echo "Job 3 Complete on Agent: $(Agent.Name)"
+      displayName: 'Print Agent Info & Simulate Load'
+
+# -----------------------------------------------------------
+# JOB 4
+# -----------------------------------------------------------
+- job: AgentTest_Job4
+  displayName: '🟠 Job 4 - Agent Distribution Test'
+  pool:
+    name: 'YOUR-PRIVATE-AGENT-POOL-NAME'  # 🔁 Replace
+  steps:
+    - script: |
+        echo "============================================"
+        echo "JOB 4 PICKED BY AGENT: $(Agent.Name)"
+        echo "Machine Name       : $(Agent.MachineName)"
+        echo "Agent ID           : $(Agent.Id)"
+        echo "Pool Name          : $(Agent.PoolName)"
+        echo "Job Start Time     : $(date)"
+        echo "============================================"
+        echo "Simulating workload - sleeping 60 seconds..."
+        sleep 60
+        echo "Job 4 Complete on Agent: $(Agent.Name)"
+      displayName: 'Print Agent Info & Simulate Load'
+
+# -----------------------------------------------------------
+# JOB 5
+# -----------------------------------------------------------
+- job: AgentTest_Job5
+  displayName: '🔴 Job 5 - Agent Distribution Test'
+  pool:
+    name: 'YOUR-PRIVATE-AGENT-POOL-NAME'  # 🔁 Replace
+  steps:
+    - script: |
+        echo "============================================"
+        echo "JOB 5 PICKED BY AGENT: $(Agent.Name)"
+        echo "Machine Name       : $(Agent.MachineName)"
+        echo "Agent ID           : $(Agent.Id)"
+        echo "Pool Name          : $(Agent.PoolName)"
+        echo "Job Start Time     : $(date)"
+        echo "============================================"
+        echo "Simulating workload - sleeping 60 seconds..."
+        sleep 60
+        echo "Job 5 Complete on Agent: $(Agent.Name)"
+      displayName: 'Print Agent Info & Simulate Load'
